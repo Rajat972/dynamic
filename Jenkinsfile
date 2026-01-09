@@ -9,15 +9,24 @@ pipeline {
 
     stages {
 
-        stage('Deploy to DEV') {
-            steps {
-                sh '''
-                ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
-                scp -r index.html style.css $DEV_SERVER:$APP_DIR/
-                ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
-                ssh $DEV_SERVER "sudo systemctl restart apache2"
-                '''
-            }
+        steps {
+        sh '''
+        # Clean old files
+        ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
+
+        # Copy files to temp directory
+        scp -r index.html style.css $DEV_SERVER:/tmp/
+
+        # Move files to Apache directory with sudo
+        ssh $DEV_SERVER "sudo mv /tmp/index.html /tmp/style.css $APP_DIR/"
+
+        # Fix ownership
+        ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+
+        # Restart Apache
+        ssh $DEV_SERVER "sudo systemctl restart apache2"
+        '''
+    }
         }
 
         stage('Approval for PROD') {
