@@ -6,27 +6,29 @@ pipeline {
         PROD_SERVER = "ubuntu@172.31.19.115"
         APP_DIR     = "/var/www/html"
     }
-stages{
-    stage('Deploy to DEV') {
-    steps {
-        sh '''
-        # Clean old files
-        ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
 
-        # Copy files to temp directory
-        scp -r index.html style.css $DEV_SERVER:/tmp/
+    stages {
 
-        # Move files to Apache directory with sudo
-        ssh $DEV_SERVER "sudo mv /tmp/index.html /tmp/style.css $APP_DIR/"
+        stage('Deploy to DEV') {
+            steps {
+                sh '''
+                # Clean old files
+                ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
 
-        # Fix ownership
-        ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+                # Copy files to temp directory
+                scp -r index.html style.css $DEV_SERVER:/tmp/
 
-        # Restart Apache
-        ssh $DEV_SERVER "sudo systemctl restart apache2"
-        '''
-    }
-    }
+                # Move files to Apache directory with sudo
+                ssh $DEV_SERVER "sudo mv /tmp/index.html /tmp/style.css $APP_DIR/"
+
+                # Fix ownership
+                ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+
+                # Restart Apache
+                ssh $DEV_SERVER "sudo systemctl restart apache2"
+                '''
+            }
+        }
 
         stage('Approval for PROD') {
             steps {
@@ -37,9 +39,19 @@ stages{
         stage('Deploy to PROD') {
             steps {
                 sh '''
+                # Clean old files
                 ssh $PROD_SERVER "sudo rm -rf $APP_DIR/*"
-                scp -r index.html style.css $PROD_SERVER:$APP_DIR/
+
+                # Copy files to temp directory
+                scp -r index.html style.css $PROD_SERVER:/tmp/
+
+                # Move files to Apache directory with sudo
+                ssh $PROD_SERVER "sudo mv /tmp/index.html /tmp/style.css $APP_DIR/"
+
+                # Fix ownership
                 ssh $PROD_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+
+                # Restart Apache
                 ssh $PROD_SERVER "sudo systemctl restart apache2"
                 '''
             }
