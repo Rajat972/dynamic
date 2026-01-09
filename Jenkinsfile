@@ -30,6 +30,7 @@ pipeline {
                 scp -r index.html style.css $PROD_SERVER:$APP_DIR/
                 ssh $PROD_SERVER "sudo chown -R www-data:www-data $APP_DIR"
                 ssh $PROD_SERVER "sudo systemctl restart apache2"
+                '''
     }
 
     post {
