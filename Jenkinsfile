@@ -6,20 +6,20 @@ pipeline {
         APP_DIR    = "/var/www/html"
     }
 
-stages{
+    stages {
 
-    stage{"deploy to dev"}{
-     steps{
-         sh'''
-         ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
-         scp -r index.html style.css $DEV_SERVER:$APP_DIR/
-         ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
-         ssh $DEV_SERVER "sudo systemctl restart apache2"
-
-         '''
-     }
+        stage('Deploy to EC2') {
+            steps {
+                sh '''
+                ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
+                scp -r index.html style.css $DEV_SERVER:$APP_DIR/
+                ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+                ssh $DEV_SERVER "sudo systemctl restart apache2"
+                '''
+            }
+        }
     }
-}
+
     post {
         success {
             echo "✅ Website deployed successfully!"
