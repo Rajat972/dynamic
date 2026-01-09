@@ -1,8 +1,8 @@
 <?php
-$host = getenv('DB_HOST');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-$db   = getenv('DB_NAME');
+$host = "html-testing-db.cg3uoe4ga0f3.us-east-1.rds.amazonaws.com";
+$user = "admin";
+$pass = "Rajat0117";
+$db   = "contactdb";
 
 $conn = new mysqli($host, $user, $pass, $db);
 
