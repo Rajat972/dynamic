@@ -1,46 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Contact Us</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-        }
-        .container {
-            width: 400px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        input, textarea {
-            width: 100%;
-            margin: 10px 0;
-            padding: 8px;
-        }
-        button {
-            background: #007BFF;
-            color: white;
-            padding: 10px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Rajat | Freelance DevOps Engineer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>Contact Us</h2>
-    <form action="save_contact.php" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <input type="text" name="phone" placeholder="Your Phone" />
-        <textarea name="message" placeholder="Your Message"></textarea>
-        <button type="submit">Submit</button>
+<!-- HEADER -->
+<header class="header">
+    <h1>Rajat Bandhral</h1>
+    <p>Freelance DevOps & Cloud Engineer</p>
+</header>
+
+<!-- ABOUT -->
+<section class="section">
+    <h2>About Me</h2>
+    <p>
+        I am a freelance DevOps engineer specializing in AWS, CI/CD pipelines,
+        Docker, Linux, and cloud infrastructure automation.
+    </p>
+</section>
+
+<!-- SERVICES -->
+<section class="section bg-light">
+    <h2>Services</h2>
+    <div class="services">
+        <div class="card">CI/CD Pipeline Setup</div>
+        <div class="card">AWS Cloud Deployment</div>
+        <div class="card">Docker & Containers</div>
+        <div class="card">Server Automation</div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section">
+    <h2>Contact Me</h2>
+    <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Your Phone">
+        <textarea placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
     </form>
-</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>📧 rajatrajput076@gmail.com | 📞 6006231663</p>
+</footer>
 
 </body>
 </html>
