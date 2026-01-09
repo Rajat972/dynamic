@@ -32,6 +32,7 @@ pipeline {
                 ssh $PROD_SERVER "sudo systemctl restart apache2"
                 '''
     }
+            }
 
     post {
         success {
