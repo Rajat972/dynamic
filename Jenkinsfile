@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        DEV_SERVER = "ubuntu@172.31.19.114"   // your EC2 private IP or public IP
+        DEV_SERVER  = "ubuntu@172.31.19.114"
         PROD_SERVER = "ubuntu@172.31.19.115"
-        APP_DIR    = "/var/www/html"
+        APP_DIR     = "/var/www/html"
     }
 
     stages {
 
-        stage('Deploy to EC2') {
+        stage('Deploy to DEV') {
             steps {
                 sh '''
                 ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
@@ -19,31 +19,31 @@ pipeline {
                 '''
             }
         }
-            stage{"approval for prod"}
-            {
-                steps{
-                    input message: 'approve for prod?', ok: 'Deploy'
-        }
+
+        stage('Approval for PROD') {
+            steps {
+                input message: 'Approve deployment to PROD?', ok: 'Deploy'
             }
-                stage {"prod deploy"}
-                {
-                    sh'''
-                ssh $PROD_SERVER "sudo rm -rf $APP_DIR/*" 
+        }
+
+        stage('Deploy to PROD') {
+            steps {
+                sh '''
+                ssh $PROD_SERVER "sudo rm -rf $APP_DIR/*"
                 scp -r index.html style.css $PROD_SERVER:$APP_DIR/
                 ssh $PROD_SERVER "sudo chown -R www-data:www-data $APP_DIR"
                 ssh $PROD_SERVER "sudo systemctl restart apache2"
                 '''
-    }
             }
+        }
+    }
 
     post {
         success {
-            echo "✅ Website deployed successfully!"
+            echo "✅ Deployment completed successfully!"
         }
         failure {
             echo "❌ Deployment failed!"
         }
     }
 }
-}
-    }
