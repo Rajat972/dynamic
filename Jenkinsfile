@@ -6,7 +6,7 @@ pipeline {
         PROD_SERVER = "ubuntu@172.31.19.115"
         APP_DIR     = "/var/www/html"
     }
-
+stages{
     stage('Deploy to DEV') {
     steps {
         sh '''
@@ -26,7 +26,7 @@ pipeline {
         ssh $DEV_SERVER "sudo systemctl restart apache2"
         '''
     }
-
+    }
 
         stage('Approval for PROD') {
             steps {
