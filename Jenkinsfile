@@ -18,11 +18,13 @@ pipeline {
                 ssh $DEV_SERVER "sudo systemctl restart apache2"
                 '''
             }
+        }
             stage{"approval for prod"}
             {
                 steps{
                     input message: 'approve for prod?', ok: 'Deploy'
         }
+            }
                 stage {"prod deploy"}
                 {
                     sh'''
