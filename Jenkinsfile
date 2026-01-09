@@ -7,9 +7,8 @@ pipeline {
         APP_DIR     = "/var/www/html"
     }
 
-    stages {
-
-        steps {
+    stage('Deploy to DEV') {
+    steps {
         sh '''
         # Clean old files
         ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
@@ -27,7 +26,7 @@ pipeline {
         ssh $DEV_SERVER "sudo systemctl restart apache2"
         '''
     }
-        }
+
 
         stage('Approval for PROD') {
             steps {
