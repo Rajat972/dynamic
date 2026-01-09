@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DEV_SERVER  = "ubuntu@172.31.19.114"
-        PROD_SERVER = "ubuntu@172.31.19.115"
+        PROD_SERVER = "ubuntu@172.31.21.91"
         APP_DIR     = "/var/www/html"
     }
 
