@@ -1,55 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Rajat | Freelance DevOps Engineer</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Rajat | DevOps Engineer</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
+<header class="hero">
     <h1>Rajat Bandhral</h1>
-    <p>Freelance DevOps & Cloud Engineer</p>
+    <p>DevOps | Cloud | Linux | AWS</p>
+    <a href="#contact" class="btn">Contact Me</a>
 </header>
 
-<!-- ABOUT -->
 <section class="section">
     <h2>About Me</h2>
     <p>
-        I am a freelance DevOps engineer specializing in AWS, CI/CD pipelines,
-        Docker, Linux, and cloud infrastructure automation.
+        I am a DevOps Engineer with hands-on experience in AWS, CI/CD pipelines,
+        Linux administration, Docker, NGINX, and production deployments.
+        I enjoy building scalable and reliable systems.
     </p>
 </section>
 
-<!-- SERVICES -->
 <section class="section bg-light">
-    <h2>Services</h2>
-    <div class="services">
-        <div class="card">CI/CD Pipeline Setup</div>
-        <div class="card">AWS Cloud Deployment</div>
-        <div class="card">Docker & Containers</div>
-        <div class="card">Server Automation</div>
+    <h2>Skills</h2>
+    <div class="skills">
+        <span>AWS</span>
+        <span>Docker</span>
+        <span>Linux</span>
+        <span>NGINX</span>
+        <span>CI/CD</span>
+        <span>Jenkins</span>
+        <span>Git</span>
+        <span>MySQL (RDS)</span>
     </div>
 </section>
 
-<!-- CONTACT -->
 <section class="section">
-    <h2>Contact Me</h2>
-   <form action="submit.php" method="POST" class="contact-form">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="text" name="phone" placeholder="Your Phone">
-    <textarea name="message" placeholder="Your Message"></textarea>
-    <button type="submit">Send Message</button>
-</form>
-
+    <h2>Projects</h2>
+    <ul class="projects">
+        <li>✔ CI/CD Pipeline with Jenkins & GitHub</li>
+        <li>✔ Secure HTTPS Website using NGINX & Let’s Encrypt</li>
+        <li>✔ Dynamic Contact Form with PHP & AWS RDS</li>
+        <li>✔ DEV → PROD Deployment on EC2</li>
+    </ul>
 </section>
 
-<!-- FOOTER -->
+<section class="section bg-light" id="contact">
+    <h2>Contact Me</h2>
+
+    <form action="/submit.php" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="phone" placeholder="Your Phone" />
+        <textarea name="message" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
 <footer class="footer">
     <p>📧 rajatrajput076@gmail.com | 📞 6006231663</p>
 </footer>
+
+<script>
+if (window.location.search.includes("success=1")) {
+    alert("Message sent successfully!");
+}
+</script>
 
 </body>
 </html>
