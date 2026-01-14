@@ -16,6 +16,7 @@ pipeline {
 
                 scp -r index.html style.css submit.php db.php $DEV_SERVER:/tmp/
 
+
                 ssh $DEV_SERVER "sudo mv /tmp/index.html /tmp/style.css /tmp/submit.php /tmp/db.php $APP_DIR/"
 
                 ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
@@ -37,7 +38,8 @@ pipeline {
                 sh '''
                 ssh $PROD_SERVER "sudo rm -rf $APP_DIR/*"
 
-                scp -r index.html style.css submit.php db.php $PROD_SERVER:/tmp/
+                scp -r index.html style.css submit.php db.php $DEV_SERVER:/tmp/
+
 
                 ssh $PROD_SERVER "sudo mv /tmp/index.html /tmp/style.css /tmp/submit.php /tmp/db.php $APP_DIR/"
 
