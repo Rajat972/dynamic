@@ -12,20 +12,16 @@ pipeline {
         stage('Deploy to DEV') {
             steps {
                 sh '''
-                # Clean old files
                 ssh $DEV_SERVER "sudo rm -rf $APP_DIR/*"
 
-                # Copy files to temp directory
-                scp -r index.html style.css $DEV_SERVER:/tmp/
+                scp -r index.html style.css submit.php db.php $DEV_SERVER:/tmp/
 
-                # Move files to Apache directory with sudo
-                ssh $DEV_SERVER "sudo mv /tmp/index.html /tmp/style.css $APP_DIR/"
+                ssh $DEV_SERVER "sudo mv /tmp/index.html /tmp/style.css /tmp/submit.php /tmp/db.php $APP_DIR/"
 
-                # Fix ownership
                 ssh $DEV_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+                ssh $DEV_SERVER "sudo chmod 644 $APP_DIR/*.php"
 
-                # Restart Apache
-                ssh $DEV_SERVER "sudo systemctl restart apache2"
+                ssh $DEV_SERVER "sudo systemctl restart nginx"
                 '''
             }
         }
@@ -39,20 +35,16 @@ pipeline {
         stage('Deploy to PROD') {
             steps {
                 sh '''
-                # Clean old files
                 ssh $PROD_SERVER "sudo rm -rf $APP_DIR/*"
 
-                # Copy files to temp directory
-                scp -r index.html style.css $PROD_SERVER:/tmp/
+                scp -r index.html style.css submit.php db.php $PROD_SERVER:/tmp/
 
-                # Move files to Apache directory with sudo
-                ssh $PROD_SERVER "sudo mv /tmp/index.html /tmp/style.css $APP_DIR/"
+                ssh $PROD_SERVER "sudo mv /tmp/index.html /tmp/style.css /tmp/submit.php /tmp/db.php $APP_DIR/"
 
-                # Fix ownership
                 ssh $PROD_SERVER "sudo chown -R www-data:www-data $APP_DIR"
+                ssh $PROD_SERVER "sudo chmod 644 $APP_DIR/*.php"
 
-                # Restart Apache
-                ssh $PROD_SERVER "sudo systemctl restart apache2"
+                ssh $PROD_SERVER "sudo systemctl restart nginx"
                 '''
             }
         }
